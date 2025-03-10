@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    {% for group in data['groups'] %}
+    <div class="group">
+        <h2>
+            <div class="icon">
+                <i class="{{ group['icon'] }}"></i>
+            </div>
+            {{ group['name'] }}
+        </h2>
+        <ul>
+            {% for item in group['items'] %}
+            <li>
+                <a href="{{ item['url'] }}" target="_blank" class="item-link">
+                    <img src="{{ url_for('static', filename=item['logo']) }}" alt="{{ item['name'] }}">
+                    {{ item['name'] }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

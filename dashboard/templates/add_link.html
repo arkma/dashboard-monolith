@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container"  style="margin-top: 50px;">
+    <form action="{{ url_for('dashboard.add_link') }}" method="post">
+        <div class="form-group">
+            <label for="group">Select Group</label>
+            <select id="group" name="group" class="form-control" onchange="toggleNewGroupFields()">
+                <option value="">Create New Group</option>
+                {% for group in groups %}
+                <option value="{{ group['id'] }}">{{ group['group_name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="new-group-fields" style="display: none;">
+            <div class="form-group">
+                <label for="new_group_name">New Group Name</label>
+                <input type="text" id="new_group_name" name="new_group_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="new_group_icon">New Group Icon</label>
+                <input type="text" id="new_group_icon" name="new_group_icon" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="link_name">Link Name</label>
+            <input type="text" id="link_name" name="link_name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="link_url">Link URL</label>
+            <input type="url" id="link_url" name="link_url" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="link_logo">Link Logo</label>
+            <input type="text" id="link_logo" name="link_logo" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Link</button>
+    </form>
+</div>
+
+<script>
+function toggleNewGroupFields() {
+    var groupSelect = document.getElementById('group');
+    var newGroupFields = document.getElementById('new-group-fields');
+    if (groupSelect.value === "") {
+        newGroupFields.style.display = 'block';
+    } else {
+        newGroupFields.style.display = 'none';
+    }
+}
+
+// Call the function on page load to set the correct initial state
+document.addEventListener('DOMContentLoaded', function() {
+    toggleNewGroupFields();
+});
+</script>
+{% endblock %}
